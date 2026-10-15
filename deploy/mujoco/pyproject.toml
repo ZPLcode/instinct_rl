@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "instinct-parkour-mujoco"
+version = "0.1.0"
+description = "Native MuJoCo deployment for Isaac-trained Unitree G1 parkour policies"
+readme = "README.md"
+license = "CC-BY-NC-4.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "mujoco~=3.11.0",
+  "numpy>=1.24,<2.5",
+  "scipy>=1.11",
+  "PyYAML>=6.0",
+  "torch>=2.4",
+  "opencv-python>=4.8",
+  "glfw>=2.7",
+  "instinct_rl @ git+https://github.com/project-instinct/instinct_rl.git@687d0ce2318f60e55f0e7dc4c9dfb77520158685",
+]
+
+[project.optional-dependencies]
+export = ["onnx>=1.16", "onnxscript", "onnxruntime"]
+
+[project.scripts]
+parkour-sim2sim = "parkour_mujoco.run:main"
+
+[tool.setuptools.packages.find]
+include = ["parkour_mujoco*"]
+
+[tool.setuptools.package-data]
+parkour_mujoco = ["assets/*.xml", "assets/*.yaml", "assets/meshes/*.STL"]
